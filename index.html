@@ -129,8 +129,10 @@ function startQuiz(subject,timer=false){
 }
 function renderTimer(){document.getElementById("timerPill").textContent=String(Math.floor(timeLeft/60)).padStart(2,"0")+":"+String(timeLeft%60).padStart(2,"0")}
 function renderQuestion(){
- const q=current[index];picked=answers[index]??null;checked=answers[index]!==undefined&&answers[index]!==null&&answers[index].checked===true;
- if(answers[index]&&typeof answers[index]==="object"){picked=answers[index].choice;checked=answers[index].checked}
+ const q=current[index];
+ const saved=answers[index];
+ if(saved && typeof saved==="object"){picked=saved.choice;checked=!!saved.checked;}
+ else {picked=saved ?? picked ?? null;checked=false;}
  document.getElementById("progressBar").style.width=((index+1)/current.length*100)+"%";
  let html=`<div class="q-meta"><span>${q.subject}</span><span>•</span><span>${q.topic}</span><span style="margin-left:auto">প্রশ্ন ${index+1}/${current.length}</span></div><div class="question">${q.q}</div><div class="options">`;
  q.opts.forEach((op,i)=>{let cls="option";if(picked===i)cls+=" selected";if(checked&&i===q.ans)cls+=" correct";if(checked&&picked===i&&i!==q.ans)cls+=" wrong";html+=`<button class="${cls}" ${checked?"disabled":""} onclick="choose(${i})"><span class="letter">${"ABCD"[i]}</span><span>${op}</span></button>`});
