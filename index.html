@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b6b55">
+<meta name="description" content="NextTopper — বিনামূল্যে মেডিকেল ভর্তি প্রস্তুতির অনুশীলন অ্যাপ">
+<link rel="manifest" href="manifest.json">
+<title>NextTopper — মেডিকেল প্রস্তুতি</title>
+<style>
+:root{--green:#0b6b55;--green2:#14866b;--mint:#e6f6ef;--ink:#172b27;--muted:#63736e;--paper:#f5f8f6;--card:#fff;--line:#dce8e2;--red:#b42318;--gold:#a15c00;--shadow:0 8px 28px #12382a0d}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali","Nirmala UI",sans-serif;line-height:1.55}
+button,select{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 20px}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:46px;height:46px;border-radius:15px;background:var(--green);color:white;display:grid;place-items:center;font-weight:900;font-size:19px;box-shadow:var(--shadow)}
+h1{font-size:22px;margin:0;letter-spacing:-.5px} .tagline{font-size:12px;color:var(--muted);margin-top:1px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--green);background:#fff;font-size:12px;font-weight:700}
+.hero{background:linear-gradient(130deg,#075846,#138468);color:white;border-radius:24px;padding:24px;display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:center;box-shadow:var(--shadow)}
+.hero h2{font-size:clamp(23px,4vw,36px);line-height:1.22;margin:0 0 10px}.hero p{margin:0;color:#e0f5ed;max-width:550px}.hero-art{justify-self:center;font-size:75px;filter:drop-shadow(0 8px 8px #003d2c40)}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:750;background:var(--green);color:white}.btn:hover{filter:brightness(1.06)}.btn.light{background:white;color:var(--green);margin-top:18px}.btn.ghost{background:#edf5f1;color:var(--green)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 24px}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.stat strong{display:block;font-size:24px;color:var(--green)}.stat span{font-size:12px;color:var(--muted)}
+.section-title{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:24px 0 12px}.section-title h2{margin:0;font-size:20px}.section-title p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.subjects{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.subject{border:1px solid var(--line);background:white;border-radius:18px;padding:16px;text-align:left;min-height:145px;color:var(--ink);box-shadow:var(--shadow)}.subject:hover,.subject:focus{outline:2px solid #75bca5}.subject .emoji{font-size:27px}.subject h3{margin:8px 0 3px;font-size:16px}.subject p{margin:0;color:var(--muted);font-size:12px}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tool{display:flex;gap:12px;align-items:center}.tool .emoji{font-size:25px;background:var(--mint);border-radius:12px;padding:10px}.tool h3{margin:0;font-size:15px}.tool p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+footer{margin:28px 0 8px;text-align:center;color:var(--muted);font-size:12px}
+.screen{display:none}.screen.active{display:block}.back{margin-bottom:14px}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.progress{height:7px;background:#e5eee9;border-radius:9px;overflow:hidden;margin:10px 0 20px}.progress div{height:100%;background:var(--green2);width:0;transition:width .2s}
+.question-card{max-width:760px;margin:auto}.q-meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12px}.question{font-size:22px;font-weight:800;margin:16px 0}.options{display:grid;gap:10px}.option{border:1px solid var(--line);border-radius:13px;background:white;padding:13px 14px;text-align:left;display:flex;gap:10px;align-items:center}.letter{width:29px;height:29px;border-radius:9px;background:#eef5f1;display:grid;place-items:center;color:var(--green);font-weight:800;flex-shrink:0}.option.selected{border-color:var(--green);background:#effaf5}.option.correct{border-color:#15966d;background:#e7f8f0}.option.wrong{border-color:#e36a61;background:#fff0ef}.feedback{margin-top:14px;padding:14px;border-radius:13px;background:#edf7f1;border:1px solid #cde8d8}.feedback.wrongbox{background:#fff2f1;border-color:#f2d0cc}.feedback strong{display:block;margin-bottom:4px}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+select{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--ink);max-width:100%}
+.result{text-align:center;padding:30px 18px}.result .big{font-size:54px}.result h2{margin:8px 0}.result p{color:var(--muted)}
+.list-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.list-row:last-child{border:0}
+.small{font-size:12px;color:var(--muted)}.warning{background:#fff8e8;border:1px solid #f3dfb3;border-radius:14px;padding:12px;font-size:13px;color:#704b00;margin-top:14px}
+@media(max-width:700px){.app{padding:12px}.hero{grid-template-columns:1fr;padding:20px}.hero-art{display:none}.subjects{grid-template-columns:repeat(2,1fr)}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:21px}.tools{grid-template-columns:1fr}.question{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">NT</div><div><h1>NextTopper</h1><div class="tagline">তোমার প্রস্তুতি, তোমার গতি</div></div></div>
+ <span class="pill">✦ ১০০% ফ্রি ডেমো</span>
+</header>
+
+<main id="homeScreen" class="screen active">
+ <section class="hero">
+  <div><h2>আজকের ছোট্ট অনুশীলন,<br>আগামীর বড় সাফল্য।</h2><p>Biology, Chemistry, Physics ও English—বাংলা ব্যাখ্যাসহ মেডিকেল ভর্তি প্রস্তুতির অনুশীলন শুরু করো।</p><button class="btn light" onclick="startQuiz('all')">আজকের কুইজ শুরু করো →</button></div>
+  <div class="hero-art" aria-hidden="true">🧬</div>
+ </section>
+ <section class="stats">
+  <div class="stat"><strong id="statDone">0</strong><span>উত্তর দেওয়া প্রশ্ন</span></div>
+  <div class="stat"><strong id="statAccuracy">—</strong><span>সঠিক উত্তরের হার</span></div>
+  <div class="stat"><strong id="statBest">0</strong><span>সেরা স্কোর</span></div>
+ </section>
+ <div class="section-title"><div><h2>বিষয় বেছে নাও</h2><p>নিজের দুর্বল বিষয় দিয়ে শুরু করো</p></div></div>
+ <section class="subjects">
+  <button class="subject" onclick="startQuiz('Biology')"><span class="emoji">🧬</span><h3>Biology</h3><p>জীববিজ্ঞান</p></button>
+  <button class="subject" onclick="startQuiz('Chemistry')"><span class="emoji">⚗️</span><h3>Chemistry</h3><p>রসায়ন</p></button>
+  <button class="subject" onclick="startQuiz('Physics')"><span class="emoji">⚡</span><h3>Physics</h3><p>পদার্থবিজ্ঞান</p></button>
+  <button class="subject" onclick="startQuiz('English')"><span class="emoji">📘</span><h3>English</h3><p>Grammar & Vocabulary</p></button>
+  <button class="subject" onclick="startQuiz('General Knowledge')"><span class="emoji">🌍</span><h3>General Knowledge</h3><p>সাধারণ জ্ঞান</p></button>
+ </section>
+ <div class="section-title"><div><h2>তোমার স্টাডি টুলস</h2><p>প্রতিদিন একটু একটু করে এগিয়ে চলো</p></div></div>
+ <section class="tools">
+  <div class="card tool"><span class="emoji">⏱️</span><div><h3>টাইমড কুইজ</h3><p>১০টি প্রশ্ন, সময় ৫ মিনিট</p><button class="btn ghost" style="margin-top:8px" onclick="startQuiz('all',true)">কুইজ শুরু</button></div></div>
+  <div class="card tool"><span class="emoji">🔁</span><div><h3>ভুলের খাতা</h3><p>ভুল করা প্রশ্নগুলো আবার দেখো</p><button class="btn ghost" style="margin-top:8px" onclick="showMistakes()">ভুলগুলো দেখো</button></div></div>
+ </section>
+ <div class="warning">এটি NextTopper-এর প্রাথমিক ডেমো। এখানে থাকা নমুনা প্রশ্নগুলো শেখার অনুশীলনের জন্য; এগুলো সম্পূর্ণ বা অফিসিয়াল মেডিকেল ভর্তি প্রশ্নব্যাংক নয়।</div>
+</main>
+
+<section id="quizScreen" class="screen">
+ <button class="btn ghost back" onclick="goHome()">← হোমে ফিরুন</button>
+ <div class="card question-card">
+  <div class="quiz-top"><div><div id="quizTitle" style="font-weight:800">অনুশীলন</div><div class="small" id="quizSub">প্রশ্নের উত্তর বেছে নাও</div></div><span class="pill" id="timerPill" style="display:none">05:00</span></div>
+  <div class="progress"><div id="progressBar"></div></div>
+  <div id="questionArea"></div>
+ </div>
+</section>
+
+<section id="resultScreen" class="screen">
+ <div class="card result"><div class="big" id="resultEmoji">🎉</div><h2 id="resultTitle">কুইজ শেষ!</h2><p id="resultText"></p><div class="stats" style="max-width:500px;margin:22px auto"><div class="stat"><strong id="resultCorrect">0</strong><span>সঠিক</span></div><div class="stat"><strong id="resultWrong">0</strong><span>ভুল</span></div><div class="stat"><strong id="resultPercent">0%</strong><span>স্কোর</span></div></div><button class="btn" onclick="startQuiz('all')">আবার অনুশীলন</button> <button class="btn ghost" onclick="goHome()">হোমে ফিরুন</button></div>
+</section>
+
+<section id="mistakesScreen" class="screen">
+ <button class="btn ghost back" onclick="goHome()">← হোমে ফিরুন</button>
+ <div class="card"><h2 style="margin-top:0">🔁 তোমার ভুলের খাতা</h2><p class="small">আগে ভুল উত্তর দেওয়া প্রশ্নগুলো এখানে থাকবে।</p><div id="mistakesList"></div></div>
+</section>
+<footer>NextTopper • শিক্ষার জন্য তৈরি, সবার জন্য উন্মুক্ত<br>প্রশ্ন ও ব্যাখ্যা যাচাই করে ব্যবহার করো।</footer>
+</div>
+<script>
+const QUESTIONS = [
+{id:1,subject:"Biology",topic:"কোষ",q:"কোষের শক্তিঘর (powerhouse of the cell) কোনটি?",opts:["রাইবোসোম","মাইটোকন্ড্রিয়া","গলজি বডি","লাইসোসোম"],ans:1,why:"মাইটোকন্ড্রিয়ায় কোষীয় শ্বসনের মাধ্যমে অধিকাংশ ATP তৈরি হয়, তাই একে কোষের শক্তিঘর বলা হয়।"},
+{id:2,subject:"Biology",topic:"জিনতত্ত্ব",q:"DNA-এর পূর্ণরূপ কোনটি?",opts:["Deoxyribonucleic Acid","Dioxyribose Nitric Acid","Deoxyribose Nitrogen Atom","Dynamic Nuclear Acid"],ans:0,why:"DNA-এর পূর্ণরূপ Deoxyribonucleic Acid। এটি জীবের বংশগত তথ্য বহন করে।"},
+{id:3,subject:"Biology",topic:"উদ্ভিদবিজ্ঞান",q:"সালোকসংশ্লেষণের সময় উদ্ভিদ প্রধানত কোন গ্যাস গ্রহণ করে?",opts:["অক্সিজেন","নাইট্রোজেন","কার্বন ডাই-অক্সাইড","হাইড্রোজেন"],ans:2,why:"সালোকসংশ্লেষণে উদ্ভিদ কার্বন ডাই-অক্সাইড ও পানি ব্যবহার করে শর্করা তৈরি করে এবং অক্সিজেন ছাড়ে।"},
+{id:4,subject:"Chemistry",topic:"পরমাণু",q:"পারমাণবিক সংখ্যা মূলত কিসের সংখ্যা নির্দেশ করে?",opts:["নিউট্রন","প্রোটন","নিউক্লিয়ন","প্রোটন ও নিউট্রনের যোগফল"],ans:1,why:"কোনো মৌলের পারমাণবিক সংখ্যা তার নিউক্লিয়াসে প্রোটনের সংখ্যার সমান।"},
+{id:5,subject:"Chemistry",topic:"pH",q:"২৫°C তাপমাত্রায় নিরপেক্ষ জলীয় দ্রবণের pH কত?",opts:["0","5","7","14"],ans:2,why:"২৫°C তাপমাত্রায় নিরপেক্ষ দ্রবণের pH সাধারণত 7। তাপমাত্রা বদলালে নিরপেক্ষ pH-ও বদলাতে পারে।"},
+{id:6,subject:"Chemistry",topic:"রাসায়নিক বন্ধন",q:"NaCl-এ প্রধানত কোন ধরনের বন্ধন থাকে?",opts:["সমযোজী","আয়নিক","ধাতব","হাইড্রোজেন"],ans:1,why:"সোডিয়াম একটি ইলেকট্রন ত্যাগ করে Na⁺ এবং ক্লোরিন তা গ্রহণ করে Cl⁻ গঠন করে; বিপরীত আধানের আকর্ষণে আয়নিক বন্ধন তৈরি হয়।"},
+{id:7,subject:"Physics",topic:"বলবিদ্যা",q:"নিউটনের দ্বিতীয় সূত্র অনুযায়ী বলের সঠিক রূপ কোনটি?",opts:["F = mv","F = ma","F = m/a","F = a/m"],ans:1,why:"ধ্রুব ভরের ক্ষেত্রে নিট বল F = ma, যেখানে m হলো ভর এবং a হলো ত্বরণ।"},
+{id:8,subject:"Physics",topic:"কাজ ও শক্তি",q:"কাজের SI একক কোনটি?",opts:["ওয়াট","নিউটন","জুল","প্যাসকেল"],ans:2,why:"কাজের SI একক জুল (J)। এক নিউটন বলের দিকে এক মিটার সরালে এক জুল কাজ হয়।"},
+{id:9,subject:"Physics",topic:"তড়িৎ",q:"ওহমের সূত্রের সঠিক সমীকরণ কোনটি?",opts:["V = IR","P = IV²","I = VR","R = VI"],ans:0,why:"তাপমাত্রা ও অন্যান্য ভৌত অবস্থা অপরিবর্তিত থাকলে ওহমের সূত্র V = IR।"},
+{id:10,subject:"English",topic:"Preposition",q:"He is good ___ Mathematics.",opts:["in","at","on","for"],ans:1,why:"Good at কোনো বিষয় বা দক্ষতায় ভালো বোঝাতে ব্যবহৃত হয়।"},
+{id:11,subject:"English",topic:"Subject–Verb Agreement",q:"Neither of the boys ___ present.",opts:["are","were","is","have"],ans:2,why:"Neither of + plural noun-এর সঙ্গে প্রচলিত formal grammar-এ singular verb ব্যবহৃত হয়।"},
+{id:12,subject:"English",topic:"Preposition",q:"He has been ill ___ Monday.",opts:["for","since","from","by"],ans:1,why:"Since নির্দিষ্ট শুরুর সময় বোঝায়; for সময়ের দৈর্ঘ্য বোঝায়।"},
+{id:13,subject:"English",topic:"Vocabulary",q:"Choose the synonym of 'Abundant'.",opts:["Scarce","Plentiful","Empty","Rare"],ans:1,why:"Abundant অর্থ প্রচুর; Plentiful এর কাছাকাছি অর্থ।"},
+{id:14,subject:"English",topic:"Conditional",q:"If I ___ you, I would accept the offer.",opts:["am","was","were","will be"],ans:2,why:"কাল্পনিক পরিস্থিতিতে প্রচলিত সঠিক গঠন হলো “If I were you”।"},
+{id:15,subject:"Biology",topic:"রক্ত",q:"মানব রক্তে অক্সিজেন বহনে প্রধান ভূমিকা রাখে কোনটি?",opts:["প্লেটলেট","হিমোগ্লোবিন","ইনসুলিন","পিত্তরস"],ans:1,why:"লোহিত রক্তকণিকার হিমোগ্লোবিন অক্সিজেনের সঙ্গে যুক্ত হয়ে তা পরিবহনে সাহায্য করে।"},
+{id:16,subject:"Chemistry",topic:"গ্যাস",q:"আদর্শ গ্যাস সমীকরণ কোনটি?",opts:["PV = nRT","P = nVRT","PT = nRV","PV = RT/n²"],ans:0,why:"আদর্শ গ্যাসের সমীকরণ PV = nRT; এখানে P চাপ, V আয়তন, n মোল সংখ্যা, R গ্যাস ধ্রুবক এবং T কেলভিন তাপমাত্রা।"},
+{id:17,subject:"General Knowledge",topic:"বাংলাদেশ",q:"বাংলাদেশের স্বাধীনতা দিবস কোন তারিখে পালিত হয়?",opts:["২১ ফেব্রুয়ারি","২৬ মার্চ","১৬ ডিসেম্বর","৭ মার্চ"],ans:1,why:"২৬ মার্চ বাংলাদেশের স্বাধীনতা দিবস। ১৬ ডিসেম্বর বিজয় দিবস।"},
+{id:18,subject:"General Knowledge",topic:"বাংলাদেশ",q:"বাংলাদেশের জাতীয় সংসদের সাধারণ আসন সংখ্যা কত?",opts:["২০০","২৫০","৩০০","৩৫০"],ans:2,why:"জাতীয় সংসদে ৩০০টি সরাসরি নির্বাচিত সাধারণ আসন রয়েছে; সংরক্ষিত নারী আসন এর অতিরিক্ত।"},
+{id:19,subject:"General Knowledge",topic:"আন্তর্জাতিক বিষয়",q:"জাতিসংঘ (United Nations) প্রতিষ্ঠিত হয় কোন সালে?",opts:["১৯১৯","১৯৪৫","১৯৪৮","১৯৫২"],ans:1,why:"দ্বিতীয় বিশ্বযুদ্ধের পর ২৪ অক্টোবর ১৯৪৫ সালে জাতিসংঘ আনুষ্ঠানিকভাবে প্রতিষ্ঠিত হয়।"},
+{id:20,subject:"General Knowledge",topic:"ভূগোল",q:"পৃথিবীর বৃহত্তম মহাসাগর কোনটি?",opts:["আটলান্টিক মহাসাগর","ভারত মহাসাগর","প্রশান্ত মহাসাগর","আর্কটিক মহাসাগর"],ans:2,why:"প্রশান্ত মহাসাগর পৃথিবীর বৃহত্তম মহাসাগর।"},
+{id:21,subject:"General Knowledge",topic:"বাংলাদেশের ইতিহাস",q:"বাংলাদেশের বিজয় দিবস কোন তারিখে পালিত হয়?",opts:["২৬ মার্চ","১৪ এপ্রিল","২১ ফেব্রুয়ারি","১৬ ডিসেম্বর"],ans:3,why:"১৬ ডিসেম্বর ১৯৭১ সালে বাংলাদেশের মুক্তিযুদ্ধে চূড়ান্ত বিজয় অর্জিত হয়; দিনটি বিজয় দিবস হিসেবে পালিত হয়।"}
+];
+const KEY="nexttopper_progress_v1";
+let progressData=loadData(), current=[], index=0, picked=null, checked=false, timed=false, timeLeft=300, timerHandle=null, answers=[];
+function loadData(){try{return JSON.parse(localStorage.getItem(KEY))||{done:0,correct:0,best:0,mistakes:[]}}catch(e){return {done:0,correct:0,best:0,mistakes:[]}}}
+function saveData(){localStorage.setItem(KEY,JSON.stringify(progressData));renderStats()}
+function renderStats(){document.getElementById("statDone").textContent=progressData.done;document.getElementById("statAccuracy").textContent=progressData.done?Math.round(progressData.correct/progressData.done*100)+"%":"—";document.getElementById("statBest").textContent=progressData.best}
+function showScreen(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+function goHome(){clearInterval(timerHandle);showScreen("homeScreen");renderStats()}
+function startQuiz(subject,timer=false){
+ clearInterval(timerHandle);timed=timer;timeLeft=300;index=0;picked=null;checked=false;answers=[];
+ let pool=subject==="all"?[...QUESTIONS]:QUESTIONS.filter(q=>q.subject===subject);
+ if(subject==="all")pool.sort(()=>Math.random()-.5);
+ current=pool.slice(0,Math.min(timer?10:8,pool.length));
+ document.getElementById("quizTitle").textContent=subject==="all"?"মেডিকেল মিক্সড কুইজ":subject+" অনুশীলন";
+ document.getElementById("quizSub").textContent=current.length+"টি প্রশ্ন • বাংলা ব্যাখ্যাসহ";
+ document.getElementById("timerPill").style.display=timer?"inline-block":"none";
+ showScreen("quizScreen");renderQuestion();
+ if(timer){renderTimer();timerHandle=setInterval(()=>{timeLeft--;renderTimer();if(timeLeft<=0){clearInterval(timerHandle);finishQuiz()}},1000)}
+}
+function renderTimer(){document.getElementById("timerPill").textContent=String(Math.floor(timeLeft/60)).padStart(2,"0")+":"+String(timeLeft%60).padStart(2,"0")}
+function renderQuestion(){
+ const q=current[index];picked=answers[index]??null;checked=answers[index]!==undefined&&answers[index]!==null&&answers[index].checked===true;
+ if(answers[index]&&typeof answers[index]==="object"){picked=answers[index].choice;checked=answers[index].checked}
+ document.getElementById("progressBar").style.width=((index+1)/current.length*100)+"%";
+ let html=`<div class="q-meta"><span>${q.subject}</span><span>•</span><span>${q.topic}</span><span style="margin-left:auto">প্রশ্ন ${index+1}/${current.length}</span></div><div class="question">${q.q}</div><div class="options">`;
+ q.opts.forEach((op,i)=>{let cls="option";if(picked===i)cls+=" selected";if(checked&&i===q.ans)cls+=" correct";if(checked&&picked===i&&i!==q.ans)cls+=" wrong";html+=`<button class="${cls}" ${checked?"disabled":""} onclick="choose(${i})"><span class="letter">${"ABCD"[i]}</span><span>${op}</span></button>`});
+ html+="</div>";
+ if(checked){const ok=picked===q.ans;html+=`<div class="feedback ${ok?"":"wrongbox"}"><strong>${ok?"✓ সঠিক উত্তর!":"✕ সঠিক উত্তর: "+q.opts[q.ans]}</strong>${q.why}</div>`}
+ html+=`<div class="quiz-actions"><button class="btn ghost" onclick="previousQ()" ${index===0?"disabled":""}>← আগের</button>${checked?`<button class="btn" onclick="${index===current.length-1?"finishQuiz()":"nextQ()"}">${index===current.length-1?"ফলাফল দেখো":"পরের প্রশ্ন →"}</button>`:`<button class="btn" onclick="checkAnswer()" ${picked===null?"disabled":""}>উত্তর যাচাই</button>`}</div>`;
+ document.getElementById("questionArea").innerHTML=html;
+}
+function choose(i){if(checked)return;picked=i;renderQuestion()}
+function checkAnswer(){if(picked===null)return;checked=true;answers[index]={choice:picked,checked:true};const q=current[index];progressData.done++;if(picked===q.ans)progressData.correct++;else if(!progressData.mistakes.includes(q.id))progressData.mistakes.push(q.id);saveData();renderQuestion()}
+function nextQ(){if(index<current.length-1){index++;picked=null;checked=false;renderQuestion()}}
+function previousQ(){if(index>0){index--;renderQuestion()}}
+function finishQuiz(){
+ clearInterval(timerHandle);
+ const completed=answers.filter(a=>a&&a.checked);const correct=answers.reduce((n,a,i)=>n+(a&&a.checked&&a.choice===current[i].ans?1:0),0);const wrong=completed.length-correct;const percent=completed.length?Math.round(correct/completed.length*100):0;
+ progressData.best=Math.max(progressData.best,percent);saveData();
+ document.getElementById("resultEmoji").textContent=percent>=80?"🏆":percent>=50?"💪":"📚";
+ document.getElementById("resultTitle").textContent=percent>=80?"দারুণ করেছ!":percent>=50?"ভালো অগ্রগতি!":"চর্চা চালিয়ে যাও!";
+ document.getElementById("resultText").textContent=`তুমি ${completed.length}টি প্রশ্নের উত্তর দিয়েছ। নিয়মিত অনুশীলন করলে আরও ভালো করবে।`;
+ document.getElementById("resultCorrect").textContent=correct;document.getElementById("resultWrong").textContent=wrong;document.getElementById("resultPercent").textContent=percent+"%";
+ showScreen("resultScreen");
+}
+function showMistakes(){
+ const ids=progressData.mistakes;const box=document.getElementById("mistakesList");
+ if(!ids.length)box.innerHTML='<p>এখনও ভুলের খাতায় কোনো প্রশ্ন নেই। কুইজ দিয়ে শুরু করো!</p>';
+ else box.innerHTML=ids.map(id=>{const q=QUESTIONS.find(x=>x.id===id);return q?`<div class="list-row"><div><strong>${q.q}</strong><div class="small">${q.subject} • সঠিক উত্তর: ${q.opts[q.ans]}</div><div class="small">${q.why}</div></div></div>`:""}).join("");
+ showScreen("mistakesScreen")
+}
+renderStats();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
