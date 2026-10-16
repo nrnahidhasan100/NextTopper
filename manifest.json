@@ -1,0 +1,10 @@
+{
+  "name": "NextTopper — মেডিকেল প্রস্তুতি",
+  "short_name": "NextTopper",
+  "description": "বিনামূল্যে মেডিকেল ভর্তি প্রস্তুতির অনুশীলন অ্যাপ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f8f6",
+  "theme_color": "#0b6b55",
+  "lang": "bn"
+}
